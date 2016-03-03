@@ -46,6 +46,8 @@ namespace ConsolePostToAPI
             dataStream.Close();
             response.Close();
              */
+
+            /*
             string baseUrl = "http://dudzapi.apphb.com/";
             using (WebClient client = new WebClient())
             {
@@ -98,7 +100,13 @@ namespace ConsolePostToAPI
                 Console.WriteLine("========== END DELETE VERB ==========");
                 Console.WriteLine(Environment.NewLine);
             }
+            
+             * */
 
+            using (WebClient client = new WebClient())
+            {
+                var result = client.UploadFile("http://localhost:53172/api/file/post", "POST", @"C:\test\BORAT.PNG");
+            }
 
             Console.ReadLine();
             

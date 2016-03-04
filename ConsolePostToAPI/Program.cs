@@ -106,6 +106,7 @@ namespace ConsolePostToAPI
             using (WebClient client = new WebClient())
             {
                 var result = client.UploadFile("http://localhost:53172/api/file/post", "POST", @"C:\test\BORAT.PNG");
+                File.WriteAllBytes("BORAT.PNG", result);
             }
 
             Console.ReadLine();

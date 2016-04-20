@@ -160,9 +160,6 @@ namespace ConsolePostToAPI
         {
             using (WebClient client = new WebClient())
             {
-               
-
-
                 client.Headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8";
                 var completePayload = Strings.payload.Replace("{0}", RandomNumber().ToString());
                 //var bytes = Encoding.Default.GetBytes(completePayload);

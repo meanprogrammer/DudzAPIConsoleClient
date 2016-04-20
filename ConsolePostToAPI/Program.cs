@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,9 @@ namespace ConsolePostToAPI
 {
     class Program
     {
+        
+
+
         static void Main(string[] args)
         {
             /*
@@ -103,14 +107,84 @@ namespace ConsolePostToAPI
             
              * */
 
+            /*
             using (WebClient client = new WebClient())
             {
                 var result = client.UploadFile("http://localhost:53172/api/file/post", "POST", @"C:\test\BORAT.PNG");
                 File.WriteAllBytes("BORAT.PNG", result);
             }
+            */
+
+            /*
+            using (WebClient client = new WebClient())
+            {
+                var result = client.UploadString("http://localhost:53172/api/TFP/5", "5");
+            }
+            */
+
+
+            WriteOptions();
+
+            //PostData();
+
+            //DeletePost();
+
 
             Console.ReadLine();
+
             
+        }
+
+
+        static void WriteOptions()
+        {
+            Console.WriteLine("1. Post Data");
+            Console.WriteLine("2. Delete Data");
+            Console.WriteLine("Enter your choice:");
+            var choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    PostData();
+                    break;
+                case "2":
+                    DeletePost();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        static void PostData()
+        {
+            using (WebClient client = new WebClient())
+            {
+               
+
+
+                client.Headers["Content-Type"] = "application/x-www-form-urlencoded; charset=UTF-8";
+                var completePayload = Strings.payload.Replace("{0}", RandomNumber().ToString());
+                //var bytes = Encoding.Default.GetBytes(completePayload);
+                var result = client.UploadString("http://localhost:53172/api/post", "POST", "="+completePayload);
+            }
+        }
+
+        static void DeletePost()
+        {
+            string sURL = "http://localhost:53172/api/delete";
+
+            WebRequest request = WebRequest.Create(sURL);
+            request.Method = "DELETE";
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+           
+        }
+
+        static int RandomNumber()
+        {
+            Random r = new Random();
+            return r.Next(100, 999);
         }
     }
 }
